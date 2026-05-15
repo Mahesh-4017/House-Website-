@@ -1,6 +1,75 @@
-import CanvasSequence, { OverlayContent } from "@/components/CanvasSequence";
+import CanvasSequence, { OverlayContent, VisualStyle } from "@/components/CanvasSequence";
+import SpecsSection from "@/components/SpecsSection";
+import ContactForm from "@/components/ContactForm";
 
-// ─── Section 1 — Exterior / Villa ────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
+// Visual styles — one per section
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Section 1 — Exterior / Pool
+ * Bright golden-hour feel. Warm amber tint on overlay mode.
+ * High saturation + contrast to make the white villa and blue pool pop.
+ */
+const exteriorStyle: VisualStyle = {
+  filter: "brightness(1.15) saturate(1.45) contrast(1.1) hue-rotate(-5deg)",
+  tint: {
+    color: "rgba(255, 185, 60, 0.12)",
+    blendMode: "overlay",
+  },
+  grain: true,
+  vignetteStrength: 1,
+};
+
+/**
+ * Section 2 — Bedroom
+ * Soft, warm, intimate. Slight rose-gold tint with gentle contrast.
+ * Lower saturation keeps the cream tones delicate and not oversaturated.
+ */
+const bedroomStyle: VisualStyle = {
+  filter: "brightness(1.05) saturate(1.1) contrast(1.08) sepia(0.08)",
+  tint: {
+    color: "rgba(230, 160, 100, 0.1)",
+    blendMode: "screen",
+  },
+  grain: true,
+  vignetteStrength: 2,
+};
+
+/**
+ * Section 3 — Kitchen & Dining
+ * Clean, crisp, editorial. Cool-white tone, high clarity.
+ * Slight blue tint on screen gives a fresh luxury magazine look.
+ */
+const kitchenStyle: VisualStyle = {
+  filter: "brightness(1.12) saturate(1.25) contrast(1.12)",
+  tint: {
+    color: "rgba(180, 220, 255, 0.08)",
+    blendMode: "screen",
+  },
+  grain: false,
+  vignetteStrength: 1,
+};
+
+/**
+ * Section 4 — Bathroom
+ * Spa-like, serene. Slight desaturation + warm glow.
+ * Heavy vignette creates a cocoon / intimate feeling.
+ */
+const bathroomStyle: VisualStyle = {
+  filter: "brightness(1.08) saturate(1.05) contrast(1.06) sepia(0.12)",
+  tint: {
+    color: "rgba(200, 170, 120, 0.12)",
+    blendMode: "overlay",
+  },
+  grain: true,
+  vignetteStrength: 2,
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Overlay content — all 4 sections
+// ─────────────────────────────────────────────────────────────────────────────
+
 const exteriorOverlays: [OverlayContent, OverlayContent, OverlayContent, OverlayContent] = [
   {
     id: "ext-1",
@@ -31,7 +100,7 @@ const exteriorOverlays: [OverlayContent, OverlayContent, OverlayContent, Overlay
     subtitle: "The Pool",
     title: "Infinity Edge,\nInfinite Calm",
     description: "The 18-metre infinity pool dissolves into the horizon at golden hour, its still surface a mirror for the mountains behind.",
-    align: "center",
+    align: "right",
     accentColor: "sky",
     features: [
       "Heated infinity pool — 18 m",
@@ -45,7 +114,7 @@ const exteriorOverlays: [OverlayContent, OverlayContent, OverlayContent, Overlay
     badge: "Availability",
     title: "Begin Your\nResidence",
     description: "Private viewings available by appointment. Our team will guide you through every detail of this extraordinary home.",
-    align: "right",
+    align: "center",
     accentColor: "amber",
     isCTA: true,
     stats: [
@@ -55,7 +124,6 @@ const exteriorOverlays: [OverlayContent, OverlayContent, OverlayContent, Overlay
   },
 ];
 
-// ─── Section 2 — Bedroom ─────────────────────────────────────────────────────
 const bedroomOverlays: [OverlayContent, OverlayContent, OverlayContent, OverlayContent] = [
   {
     id: "bed-1",
@@ -63,7 +131,7 @@ const bedroomOverlays: [OverlayContent, OverlayContent, OverlayContent, OverlayC
     subtitle: "Level 2",
     title: "Sleep Inside\nthe View",
     description: "The master bedroom is a sanctuary that opens entirely to the lake on two sides — waking up here feels like floating.",
-    align: "right",
+    align: "center",
     accentColor: "white",
   },
   {
@@ -72,7 +140,7 @@ const bedroomOverlays: [OverlayContent, OverlayContent, OverlayContent, OverlayC
     subtitle: "Craftsmanship",
     title: "Fluted Panels,\nGolden Detail",
     description: "Hand-selected travertine-finish panels run floor to ceiling behind the bed, lit from within by a ribbon of warm brass.",
-    align: "center",
+    align: "left",
     accentColor: "amber",
     features: [
       "Floor-to-ceiling fluted feature wall",
@@ -90,9 +158,9 @@ const bedroomOverlays: [OverlayContent, OverlayContent, OverlayContent, OverlayC
     align: "right",
     accentColor: "amber",
     stats: [
-      { label: "Ceiling Ht", value: "3.4m"  },
-      { label: "Windows",    value: "4.8m"  },
-      { label: "Aspect",     value: "180°"  },
+      { label: "Ceiling Ht", value: "3.4m" },
+      { label: "Windows",    value: "4.8m" },
+      { label: "Aspect",     value: "180°" },
     ],
   },
   {
@@ -106,7 +174,6 @@ const bedroomOverlays: [OverlayContent, OverlayContent, OverlayContent, OverlayC
   },
 ];
 
-// ─── Section 3 — Kitchen & Dining ────────────────────────────────────────────
 const kitchenOverlays: [OverlayContent, OverlayContent, OverlayContent, OverlayContent] = [
   {
     id: "kit-1",
@@ -114,7 +181,7 @@ const kitchenOverlays: [OverlayContent, OverlayContent, OverlayContent, OverlayC
     subtitle: "Kitchen & Dining",
     title: "Where Cooking\nMeets Theatre",
     description: "The kitchen opens entirely to the waterfront through 4.8-metre bi-fold doors — cooking with a view this extraordinary.",
-    align: "left",
+    align: "right",
     accentColor: "white",
   },
   {
@@ -139,12 +206,12 @@ const kitchenOverlays: [OverlayContent, OverlayContent, OverlayContent, OverlayC
     subtitle: "The Table",
     title: "Live-Edge Oak,\nWater Views",
     description: "A 3.2-metre live-edge walnut dining table seats 10. Overhead, a bespoke linear chandelier traces the table's full length.",
-    align: "left",
+    align: "right",
     accentColor: "amber",
     stats: [
-      { label: "Seats",    value: "10"   },
-      { label: "Island",   value: "4 m"  },
-      { label: "View",     value: "270°" },
+      { label: "Seats",  value: "10"   },
+      { label: "Island", value: "4 m"  },
+      { label: "View",   value: "270°" },
     ],
   },
   {
@@ -152,13 +219,12 @@ const kitchenOverlays: [OverlayContent, OverlayContent, OverlayContent, OverlayC
     badge: "Indoor–Outdoor",
     title: "The Boundary\nDisappears",
     description: "When the bi-fold doors retract, the kitchen, dining room, terrace, and pool become one continuous living space.",
-    align: "right",
+    align: "center",
     accentColor: "emerald",
     isCTA: true,
   },
 ];
 
-// ─── Section 4 — Bathroom ────────────────────────────────────────────────────
 const bathroomOverlays: [OverlayContent, OverlayContent, OverlayContent, OverlayContent] = [
   {
     id: "bath-1",
@@ -193,9 +259,9 @@ const bathroomOverlays: [OverlayContent, OverlayContent, OverlayContent, Overlay
     align: "right",
     accentColor: "amber",
     stats: [
-      { label: "Vanity",  value: "1.8m"   },
-      { label: "Mirror",  value: "LED"    },
-      { label: "Heating", value: "Radiant"},
+      { label: "Vanity",  value: "1.8m"    },
+      { label: "Mirror",  value: "LED"     },
+      { label: "Heating", value: "Radiant" },
     ],
   },
   {
@@ -209,41 +275,44 @@ const bathroomOverlays: [OverlayContent, OverlayContent, OverlayContent, Overlay
   },
 ];
 
-// ─── Page ─────────────────────────────────────────────────────────────────────
-
-import SpecsSection from "@/components/SpecsSection";
-import ContactForm from "@/components/ContactForm";
+// ─────────────────────────────────────────────────────────────────────────────
+// Page
+// ─────────────────────────────────────────────────────────────────────────────
 
 export default function Home() {
   return (
     <main className="w-full bg-[#050505]">
 
-      {/* Section 1 — Exterior & Pool */}
+      {/* 1 — Exterior & Pool — warm golden-hour tint */}
       <CanvasSequence
         folderPrefix="/ezgif-1-jpg/ezgif-frame-"
         totalFrames={24}
         overlays={exteriorOverlays}
+        visualStyle={exteriorStyle}
       />
 
-      {/* Section 2 — Bedroom */}
+      {/* 2 — Bedroom — warm rose-gold sepia */}
       <CanvasSequence
         folderPrefix="/ezgif-2-jpg/ezgif-frame-"
         totalFrames={24}
         overlays={bedroomOverlays}
+        visualStyle={bedroomStyle}
       />
 
-      {/* Section 3 — Kitchen & Dining */}
+      {/* 3 — Kitchen & Dining — cool crisp editorial */}
       <CanvasSequence
         folderPrefix="/ezgif-3-jpg/ezgif-frame-"
         totalFrames={32}
         overlays={kitchenOverlays}
+        visualStyle={kitchenStyle}
       />
 
-      {/* Section 4 — Bathroom */}
+      {/* 4 — Bathroom — spa warm sepia heavy vignette */}
       <CanvasSequence
         folderPrefix="/ezgif-4-jpg/ezgif-frame-"
         totalFrames={24}
         overlays={bathroomOverlays}
+        visualStyle={bathroomStyle}
       />
 
       {/* Section 5 — Specs */}
